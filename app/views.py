@@ -43,9 +43,10 @@ def job_detail(request, id):
         return HttpResponseNotFound("Page not found.")
     
 def hello(request):
-    template = loader.get_template('app/hello.html')
     list = ["Elefante", "Tigre"]
     temp = TempClass()
-    context={"name": "Django", "first_list": list, "temp_object": temp}
-    return HttpResponse(template.render(context, request))
+    is_authenticated = False
+    context={"name": "Django", "first_list": list, "temp_object": temp, "age": 29,
+             "is_authenticated": is_authenticated}
+    return render(request, "app/hello.html", context)
     
