@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.template import loader
 
 job_title = [
     "First Job",
@@ -16,6 +17,10 @@ job_description = [
 ]
 
 # Create your views here.
+
+class TempClass:
+    x = 5
+
 def job_list(request):
     list_of_jobs = "<ul>"
     for j in job_title:
@@ -36,3 +41,11 @@ def job_detail(request, id):
         return HttpResponse(return_html) 
     except:
         return HttpResponseNotFound("Page not found.")
+    
+def hello(request):
+    template = loader.get_template('app/hello.html')
+    list = ["Elefante", "Tigre"]
+    temp = TempClass()
+    context={"name": "Django", "first_list": list, "temp_object": temp}
+    return HttpResponse(template.render(context, request))
+    
